@@ -1,5 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+apply plugin: 'com.github.dcendents.android-maven'
 
 ext {
     bintrayRepo = 'maven'
@@ -9,12 +14,12 @@ ext {
     libraryName = 'Reachability'
     artifact = 'reachability'
 
-    libraryDescription = ''
+    libraryDescription = 'Simple network status tracker for Android applications'
 
     siteUrl = 'https://github.com/Eugene-Shcherbinock/Reachability'
     gitUrl = 'https://github.com/Eugene-Shcherbinock/Reachability.git'
 
-    libraryVersion = '0.0.2'
+    libraryVersion = '0.0.5'
 
     developerId = 'eugene-shcherbinock'
     developerName = 'Eugene Shcherbinock'
@@ -31,8 +36,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 2
-        versionName "0.0.2"
+        versionCode 5
+        versionName "0.0.5"
     }
 
     buildTypes {
@@ -40,24 +45,22 @@ android {
             minifyEnabled false
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
         }
     }
 
 }
 
-repositories {
-    mavenCentral()
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
-if (project.rootProject.file('local.properties').exists()) {
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-}
+apply from: 'deploy.gradle'
