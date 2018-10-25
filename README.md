@@ -75,13 +75,9 @@ You can see the latest version number [here][1] or download library directly.
 ## Contributing
 
 1. Fork it - https://github.com/Eugene-Shcherbinock/Reachability/fork
-2. Create your feature(fix) branch
-`git checkout -b some-feature`
-3. Commit your changes 
-`git commit -m 'add some feature'`
-4. Push to the branch
-`git push origin my-new-feature`
-
+2. Create your feature(fix) branch `git checkout -b some-feature`
+3. Commit your changes `git commit -m 'add some feature'`
+4. Push to the branch `git push origin my-new-feature`
 5. Create new Pull Request [here][3]
 
 ##### I will be glad of your interest and participation :)
