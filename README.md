@@ -1,6 +1,6 @@
 # Reachability
 
-Simple network status tracker for Android.
+Simple network status tracker for Android like an [iOS Reachability library][4]
 
 ![ReachabilitySample](assets/sample.gif)
 
@@ -107,3 +107,4 @@ You can see the latest version number [here][1] or download library directly.
 [1]: https://bintray.com/eugene-shcherbinock/maven/Reachability
 [2]: https://github.com/Eugene-Shcherbinock/Reachability/tree/master/app/src/main/java/ua/eshcherbinock/reachabilitytest
 [3]: https://github.com/Eugene-Shcherbinock/Reachability/pulls
+[4]: https://github.com/ashleymills/Reachability.swift
