@@ -7,8 +7,8 @@ import android.content.Intent
  * Created by Eugene Shcherbinock on 2/24/18.
  */
 
-interface ReachabilityChangeListener {
+internal interface ReachabilityChangeListener {
 
-    fun onReachabilityStatusChange(context: Context, intent: Intent)
+    fun onReachabilityStatusChange(context: Context, intent: Intent?)
 
 }

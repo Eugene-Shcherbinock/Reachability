@@ -1,6 +1,4 @@
-package ua.eshcherbinock.reachability.abstraction
-
-import ua.eshcherbinock.reachability.Reachability
+package ua.eshcherbinock.reachability
 
 /**
  * Created by Eugene Shcherbinock on 2/24/18.

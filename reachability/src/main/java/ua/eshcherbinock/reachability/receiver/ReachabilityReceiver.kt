@@ -9,7 +9,7 @@ import android.content.IntentFilter
  * Created by Eugene Shcherbinock on 2/24/18.
  */
 
-class ReachabilityReceiver constructor(private val listener: ReachabilityChangeListener) : BroadcastReceiver() {
+internal class ReachabilityReceiver constructor(private val listener: ReachabilityChangeListener) : BroadcastReceiver() {
 
     companion object {
         private const val REACHABILITY_CHANGE_ACTION = "android.net.conn.CONNECTIVITY_CHANGE"

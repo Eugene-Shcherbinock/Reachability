@@ -2,14 +2,31 @@ package ua.eshcherbinock.reachabilitytest.module.base
 
 import android.os.Bundle
 
-interface BasePresenterType <in V: BaseViewType> {
 
-    fun onCreate(savedInstanceState: Bundle?)
+open class BasePresenter <V: BaseContracts.BaseViewType>: BaseContracts.BasePresenterType<V> {
 
-    fun onStart()
+    /**
+     * Properties
+     */
 
-    fun onStop()
+    protected var mView: V? = null
 
-    fun onDestroy()
+    /**
+     * BasePresenterType implementation
+     */
+
+    override fun onCreate(view: V, withSavedInstanceState: Bundle?) {
+        mView = view
+    }
+
+    override fun onStart() {
+    }
+
+    override fun onStop() {
+    }
+
+    override fun onDestroy() {
+        mView = null
+    }
 
 }

@@ -5,14 +5,24 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import ua.eshcherbinock.reachability.abstraction.ReachabilityNotifierType
-import ua.eshcherbinock.reachability.abstraction.ReachabilityObserverType
 import ua.eshcherbinock.reachability.receiver.ReachabilityChangeListener
 import ua.eshcherbinock.reachability.receiver.ReachabilityReceiver
 
 /**
  * Created by Eugene Shcherbinock on 2/24/18.
  */
+
+interface ReachabilityNotifierType {
+
+    var currentState: Reachability.State
+
+    fun startNotifier()
+    fun stopNotifier()
+
+    fun addListener(observer: ReachabilityStateObserver)
+    fun removeListener(observer: ReachabilityStateObserver)
+
+}
 
 class Reachability private constructor(private val context: Context) : ReachabilityNotifierType, ReachabilityChangeListener {
 
@@ -22,7 +32,7 @@ class Reachability private constructor(private val context: Context) : Reachabil
     }
 
     companion object {
-        private var sInstance: Reachability? = null
+        private var sInstance: ReachabilityNotifierType? = null
 
         fun getInstance(context: Context): ReachabilityNotifierType = sInstance
                 ?: synchronized(this) {
@@ -30,24 +40,23 @@ class Reachability private constructor(private val context: Context) : Reachabil
                 }
     }
 
-    /**
-     * Properties
-     */
+    override var currentState: State = State.NOT_REACHABLE
+        get() = isReachable(context).toState()
 
     private val mReachabilityStatusReceiver: BroadcastReceiver = ReachabilityReceiver(this)
-    private var mObservers: MutableList<ReachabilityObserverType> = mutableListOf()
+    private var mObservers: MutableList<ReachabilityStateObserver> = mutableListOf()
 
     /**
      * ReachabilityChangeListener implementation
      */
 
-    override fun onReachabilityStatusChange(context: Context, intent: Intent) {
-        when (isReachable(context, intent)) {
-            true -> State.REACHABLE
-            else -> State.NOT_REACHABLE
-        }.also { newState ->
-            mObservers.forEach {
-                it.onReachabilityChange(newState)
+    override fun onReachabilityStatusChange(context: Context, intent: Intent?) {
+        isReachable(context, intent).toState().also { newState ->
+            takeIf { newState != currentState }.apply {
+                currentState = newState
+                mObservers.forEach {
+                    it.onReachabilityStateChange(newState)
+                }
             }
         }
     }
@@ -64,11 +73,15 @@ class Reachability private constructor(private val context: Context) : Reachabil
         context.unregisterReceiver(mReachabilityStatusReceiver)
     }
 
-    override fun addListener(observer: ReachabilityObserverType) {
-        mObservers.add(observer)
+    override fun addListener(observer: ReachabilityStateObserver) {
+        takeUnless {
+            mObservers.contains(observer)
+        }?.apply {
+            mObservers.add(observer)
+        }
     }
 
-    override fun removeListener(observer: ReachabilityObserverType) {
+    override fun removeListener(observer: ReachabilityStateObserver) {
         mObservers.remove(observer)
     }
 
@@ -76,7 +89,7 @@ class Reachability private constructor(private val context: Context) : Reachabil
      * Private
      */
 
-    private fun isReachable(context: Context, intent: Intent): Boolean {
+    private fun isReachable(context: Context, intent: Intent? = null): Boolean {
         val activeNetworkInformation = getNetworkInformation(context)
         return activeNetworkInformation?.isConnected ?: false
     }

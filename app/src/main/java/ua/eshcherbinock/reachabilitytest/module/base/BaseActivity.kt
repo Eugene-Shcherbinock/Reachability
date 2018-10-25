@@ -2,7 +2,6 @@ package ua.eshcherbinock.reachabilitytest.module.base
 
 import android.content.Context
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 
 abstract class BaseActivity <in V: BaseContracts.BaseViewType, P: BaseContracts.BasePresenterType<V>>:
@@ -13,13 +12,18 @@ abstract class BaseActivity <in V: BaseContracts.BaseViewType, P: BaseContracts.
      */
 
     protected abstract var mPresenter: P
+    protected abstract var mLayoutId: Int
 
     /**
      * Activity lifecycle
      */
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(mLayoutId)
+
+        updateDependencies()
+
         mPresenter.onCreate(this as V, savedInstanceState)
     }
 
@@ -44,8 +48,10 @@ abstract class BaseActivity <in V: BaseContracts.BaseViewType, P: BaseContracts.
 
     override fun getContext(): Context = this
 
-    override fun setLoadingIndicatorState(show: Boolean) {
+    /**
+     * Protected
+     */
 
-    }
+    protected open fun updateDependencies() {}
 
 }

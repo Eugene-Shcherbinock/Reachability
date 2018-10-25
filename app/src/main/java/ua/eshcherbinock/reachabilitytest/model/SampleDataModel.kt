@@ -1,15 +1,25 @@
 package ua.eshcherbinock.reachabilitytest.model
 
-interface FakeDataModelType {
+import android.os.Handler
+import android.os.Looper
+import java.util.concurrent.TimeUnit
+import kotlin.concurrent.thread
+
+interface SampleDataModelType {
 
     fun fetchFakeData(completion: (String) -> Unit)
 
 }
 
-class FakeDataModel: FakeDataModelType {
+class SampleDataModel: SampleDataModelType {
 
     override fun fetchFakeData(completion: (String) -> Unit) {
-        
+        thread {
+            TimeUnit.SECONDS.sleep(3)
+            Handler(Looper.getMainLooper()).post {
+                completion("Data fetched successful!")
+            }
+        }
     }
 
 }

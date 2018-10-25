@@ -1,10 +1,12 @@
-package ua.eshcherbinock.reachabilitytest.module.fake
+package ua.eshcherbinock.reachabilitytest.module.sample
 
 import ua.eshcherbinock.reachabilitytest.module.base.BaseContracts
 
-object FakeModuleContracts {
+object SampleModuleContracts {
 
-    interface FakeViewType: BaseContracts.BaseViewType {
+    interface SampleViewType: BaseContracts.BaseViewType {
+
+        fun setLoadingIndicatorState(show: Boolean)
 
         fun setReachabilityIndicatorState(show: Boolean)
 
@@ -12,7 +14,7 @@ object FakeModuleContracts {
 
     }
 
-    interface FakePresenterType: BaseContracts.BasePresenterType <FakeViewType> {
+    interface SamplePresenterType: BaseContracts.BasePresenterType <SampleViewType> {
 
         fun fetchData()
 
