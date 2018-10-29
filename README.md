@@ -60,14 +60,14 @@ Maven:
 <dependency>
   <groupId>ua.eshcherbinock</groupId>
   <artifactId>reachability</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
   <type>pom</type>
 </dependency>
 ```
 
 Gradle:
 ```groovy
-implementation 'ua.eshcherbinock:reachability:0.0.6'
+implementation 'ua.eshcherbinock:reachability:0.0.7'
 ```
 
 You can see the latest version number [here][1] or download library directly.
