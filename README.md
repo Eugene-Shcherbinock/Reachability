@@ -6,10 +6,10 @@ Simple network status tracker for Android like an [iOS Reachability library][4]
 
 ## Usage
 
-Get a Reachability instance:
+Create a Reachability instance:
 
 ```kotlin
-    mReachability = Reachability.getInstance(view.getContext())
+    mReachability = new Reachability(view.getContext())
 ```
 
 Add an observer for reachability status changes:

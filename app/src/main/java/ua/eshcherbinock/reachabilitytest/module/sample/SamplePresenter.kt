@@ -25,7 +25,7 @@ class SamplePresenter: BasePresenter<SampleModuleContracts.SampleViewType>(), Sa
     override fun onCreate(view: SampleModuleContracts.SampleViewType, withSavedInstanceState: Bundle?) {
         super.onCreate(view, withSavedInstanceState)
 
-        mReachability = Reachability.getInstance(view.getContext())
+        mReachability = Reachability(view.getContext())
         mReachability.addListener(this)
     }
 

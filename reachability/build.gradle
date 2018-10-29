@@ -19,7 +19,7 @@ ext {
     siteUrl = 'https://github.com/Eugene-Shcherbinock/Reachability'
     gitUrl = 'https://github.com/Eugene-Shcherbinock/Reachability.git'
 
-    libraryVersion = '0.0.6'
+    libraryVersion = '0.0.7'
 
     developerId = 'eugene-shcherbinock'
     developerName = 'Eugene Shcherbinock'
@@ -36,8 +36,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 6
-        versionName "0.0.6"
+        versionCode 7
+        versionName "0.0.7"
     }
 
     buildTypes {

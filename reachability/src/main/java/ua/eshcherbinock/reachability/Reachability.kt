@@ -24,21 +24,21 @@ interface ReachabilityNotifierType {
 
 }
 
-class Reachability private constructor(private val context: Context) : ReachabilityNotifierType, ReachabilityChangeListener {
+class Reachability constructor(private val context: Context) : ReachabilityNotifierType, ReachabilityChangeListener {
 
     enum class State {
         REACHABLE,
         NOT_REACHABLE
     }
 
-    companion object {
-        private var sInstance: ReachabilityNotifierType? = null
-
-        fun getInstance(context: Context): ReachabilityNotifierType = sInstance
-                ?: synchronized(this) {
-                    sInstance ?: Reachability(context).also { sInstance = it }
-                }
-    }
+//    companion object {
+//        private var sInstance: ReachabilityNotifierType? = null
+//
+//        fun getInstance(context: Context): ReachabilityNotifierType = sInstance
+//                ?: synchronized(this) {
+//                    sInstance ?: Reachability(context).also { sInstance = it }
+//                }
+//    }
 
     override var currentState: State = State.NOT_REACHABLE
         get() = isReachable(context).toState()
